@@ -76,12 +76,12 @@ const dessertInfo = [
 
 const typeOfDish = [foodInfo, drinkInfo, dessertInfo]
 
-// const type = ["food-scroll", "drink-scroll", "dessert-scroll"]
+const type = ["food-scroll", "drink-scroll", "dessert-scroll"]
 
 export default function Container () {
   return (
     <div class="container">
-      {categories.map(category => <Options category={category} array={typeOfDish} />)}
+      {categories.map((category, index) => <Options category={category} array={typeOfDish[index]} key={index} type={type[index]} />)}
     </div>
   );
 }
