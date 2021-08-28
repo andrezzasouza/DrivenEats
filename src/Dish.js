@@ -1,3 +1,5 @@
+import Counter from "./Counter";
+
 export default function Dish (props) {
 
   const {dishImg, dishAlt, dishName, description, price} = props;
@@ -9,7 +11,7 @@ export default function Dish (props) {
       <p className="description">{description}</p>
       <div className="price-and-check">
         <p>R$ <span className="price">{price}</span></p>
-        <ion-icon name="checkmark-circle" className="check"></ion-icon>
+        <Counter />
       </div>
     </button>
   );
