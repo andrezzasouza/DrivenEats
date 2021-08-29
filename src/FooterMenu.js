@@ -1,8 +1,8 @@
 export default function FooterMenu () {
   return (
-    <div class="footer-menu">
-    <button class="order-in-progress">
-      <p class="button-text">
+    <div className="footer-menu">
+    <button className="order-in-progress">
+      <p className="button-text">
         Selecione os 3 itens para fechar o pedido
       </p>
     </button>

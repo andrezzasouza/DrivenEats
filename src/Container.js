@@ -80,7 +80,7 @@ const type = ["food-scroll", "drink-scroll", "dessert-scroll"]
 
 export default function Container () {
   return (
-    <div class="container">
+    <div className="container">
       {categories.map((category, index) => <Options category={category} array={typeOfDish[index]} key={index} type={type[index]} />)}
     </div>
   );
