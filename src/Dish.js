@@ -32,11 +32,12 @@ export default function Dish (props) {
 
   console.log("sD out", selectedDishes)
 
-  // function removeDish(dishName) {
-  //   if (dishName) {
-
-  //   }
-  // }
+  function removeCurrentDish (thisDish) {
+    console.log("tD", thisDish);
+    if(thisDish.dishName === dishName) {
+      thisDish.counter = counter - 1
+    }
+  }
 
   function decreaseAmount (event) {
     event.stopPropagation();
@@ -55,13 +56,6 @@ export default function Dish (props) {
     if (counter >= 2) {
       selectedDishes.forEach(removeCurrentDish)
       setSelectedDishes([...selectedDishes])
-    }
-  }
-
-  function removeCurrentDish (thisDish) {
-    console.log("tD", thisDish);
-    if(thisDish.dishName === dishName) {
-      thisDish.counter = counter - 1
     }
   }
 

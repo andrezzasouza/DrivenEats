@@ -103,12 +103,48 @@ function AppContents () {
 
   let updatedArray = [...selectedDishes]
 
-  console.log(updatedArray)
+  const foodArray = [];
+  const drinkArray = [];
+  const dessertArray = []
+  const totalPrice = [];
+  let food = false;
+  let drink = false;
+  let dessert = false;
+
+  
+
+  function checkCategory(thisDish) {
+    if (thisDish.type === "food-scroll") {
+      foodArray.push(thisDish.dishName);
+      totalPrice.push(thisDish.price);
+      food = true;
+    }
+    if (thisDish.type === "drink-scroll") {
+      drinkArray.push(thisDish.dishName);
+      totalPrice.push(thisDish.price);
+      drink = true;
+    }
+    if (thisDish.type === "dessert-scroll") {
+      dessertArray.push(thisDish.dishName);
+      totalPrice.push(thisDish.price);
+      dessert = true;
+    }
+  }
+
+  console.log("fA", foodArray);
+  console.log("drinkA", drinkArray);
+  console.log("dessertA", dessertArray);
+
+  updatedArray.forEach(checkCategory);
+
+  console.log("uA", updatedArray)
   
   function enableButton () {
-    //condition for it to work
-    setButton("order-in-progress order-ready");
-    setText(readyText);
+    
+    if (food === true && drink === true && dessert === true) {
+      setButton("order-in-progress order-ready");
+      setText(readyText);
+    }    
   }
 
   function placeOrder () {
