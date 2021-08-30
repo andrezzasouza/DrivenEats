@@ -290,6 +290,7 @@ ion-icon {
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
     padding: 6px calc(35% - 73px);
     cursor: pointer;
 }

@@ -23,36 +23,61 @@ export default function Dish (props) {
       setCounter(1);
       setStatus(() => true);
       console.log("status", status)
+      infos = {dishName, price, counter, status, index, type};
+      setSelectedDishes([...selectedDishes, infos]);
     }
-    infos = {dishName, price, counter, status, index, type};
-    setSelectedDishes([...selectedDishes, infos]);
+    
     enableButton();
   }
 
-  console.log(selectedDishes)
+  console.log("sD out", selectedDishes)
 
-  function decreaseAmount () {
+  // function removeDish(dishName) {
+  //   if (dishName) {
+
+  //   }
+  // }
+
+  function decreaseAmount (event) {
+    event.stopPropagation();
     setCounter(counter - 1);
     if (counter === 1) {
       setDish("");
       setStatus(() => false);
-      selectedDishes.filter(function (e) {
+      setSelectedDishes(selectedDishes.filter(function (e) {
         return e.dishName !==  dishName
       }
     )
+    )  
+    console.log("sD in", selectedDishes)
     }
 
     if (counter >= 2) {
-      // reduce current amount in array
+      selectedDishes.forEach(removeCurrentDish)
+      setSelectedDishes([...selectedDishes])
     }
-    
   }
 
-  function increaseAmount () {
-    setCounter(counter + 1);
-    if (counter >= 1) {
-      // increase current amount in array
+  function removeCurrentDish (thisDish) {
+    console.log("tD", thisDish);
+    if(thisDish.dishName === dishName) {
+      thisDish.counter = counter - 1
     }
+  }
+
+  function addCurrentDish (thisDish) {
+    console.log("tD", thisDish);
+    if (thisDish.dishName === dishName) {
+      thisDish.counter = counter + 1;
+    }
+  }
+
+  function increaseAmount (event) {
+    event.stopPropagation();
+    setCounter(counter + 1);
+    console.log("here")
+    selectedDishes.forEach(addCurrentDish)
+    setSelectedDishes([...selectedDishes])
   }
 
   return (

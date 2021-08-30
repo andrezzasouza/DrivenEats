@@ -89,8 +89,9 @@ export default function App () {
   );
 }
 
+
+ 
 function AppContents () {
-  // const [statusButton, setStatusButton] = useState()
 
   const [selectedDishes, setSelectedDishes] = useState([]);
 
@@ -98,19 +99,19 @@ function AppContents () {
   const readyText = "Fechar pedido"
 
   const [button, setButton] = useState("order-in-progress");
-  const [text, setText] = useState(originalText)
-  let buttonStatus = false;
+  const [text, setText] = useState(originalText);
 
+  let updatedArray = [...selectedDishes]
+
+  console.log(updatedArray)
+  
   function enableButton () {
     //condition for it to work
     setButton("order-in-progress order-ready");
     setText(readyText);
   }
 
-  
-
   function placeOrder () {
-
     const messageWpp = window.encodeURIComponent("Olá, gostaria de fazer o pedido:" + "\r\n" + "- Prato: " + "nome do prato" + "\r\n" + "- Bebida: " + "nome da bebida" + "\r\n" + "- Sobremesa: " + "nome das sobremesas" + "\r\n" + "Total: R$ " + "50,00");
     window.location.href = "https://wa.me/5521990867634?text=" + messageWpp;
   }
@@ -139,7 +140,7 @@ function AppContents () {
         enableButton={enableButton} 
         placeOrder={placeOrder}
         text={text} 
-        buttonStatus={buttonStatus}
+        // buttonStatus={buttonStatus}
       />
     </>
   );
