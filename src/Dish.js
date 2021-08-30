@@ -23,11 +23,12 @@ export default function Dish (props) {
       setCounter(1);
       setStatus(() => true);
       console.log("status", status)
-      infos = {dishName, price, counter, status, index, type};
+      let newPrice = Number(price.replace(/,/g, '.'));
+      infos = {dishName, newPrice, counter, status, index, type};
       setSelectedDishes([...selectedDishes, infos]);
     }
     
-    enableButton();
+    enableButton([...selectedDishes, infos]);
   }
 
   console.log("sD out", selectedDishes)
@@ -36,6 +37,8 @@ export default function Dish (props) {
     console.log("tD", thisDish);
     if(thisDish.dishName === dishName) {
       thisDish.counter = counter - 1
+      let newPrice = Number(price.replace(/,/g, '.')).toFixed(2);
+      thisDish.newPrice -= newPrice
     }
   }
 
@@ -56,13 +59,15 @@ export default function Dish (props) {
       selectedDishes.forEach(removeCurrentDish)
       setSelectedDishes([...selectedDishes])
     }
-    enableButton();
+    enableButton([...selectedDishes, infos]);
   }
 
   function addCurrentDish (thisDish) {
     console.log("tD", thisDish);
     if (thisDish.dishName === dishName) {
       thisDish.counter = counter + 1;
+      let newPrice = Number(price.replace(/,/g, '.'));
+      thisDish.newPrice += newPrice;
     }
   }
 
@@ -72,7 +77,7 @@ export default function Dish (props) {
     console.log("here")
     selectedDishes.forEach(addCurrentDish)
     setSelectedDishes([...selectedDishes])
-    enableButton();
+    enableButton([...selectedDishes], infos);
   }
 
   return (

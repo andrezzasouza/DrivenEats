@@ -115,23 +115,25 @@ function AppContents () {
   
 
   function checkCategory(thisDish) {
-    console.log("thisdishapp", thisDish)
-    if (thisDish.type === "food-scroll") {
+    // console.log("thisdishapp", thisDish)
+    if (thisDish === undefined) {
+      food = false;
+      drink = false;
+      dessert = false;
+    } else if (thisDish.type === "food-scroll") {
       foodArray.push(thisDish.dishName);
       foodAmount.push(thisDish.counter);
-      totalPrice.push(thisDish.price);
+      totalPrice.push(thisDish.newPrice);
       food = true;
-    }
-    if (thisDish.type === "drink-scroll") {
+    } else if (thisDish.type === "drink-scroll") {
       drinkArray.push(thisDish.dishName);
       drinkAmount.push(thisDish.counter);
-      totalPrice.push(thisDish.price);
+      totalPrice.push(thisDish.newPrice);
       drink = true;
-    }
-    if (thisDish.type === "dessert-scroll") {
+    } else if (thisDish.type === "dessert-scroll") {
       dessertArray.push(thisDish.dishName);
       dessertAmount.push(thisDish.counter);
-      totalPrice.push(thisDish.price);
+      totalPrice.push(thisDish.newPrice);
       dessert = true;
     }
   }
@@ -148,24 +150,41 @@ function AppContents () {
   console.log("s2", drink);
   console.log("s3", dessert);
   
-  function enableButton () {
+  function enableButton (array) {
     console.log("s4", food);
     console.log("s5", drink);
     console.log("s6", dessert);
+
+    array.forEach(checkCategory);
+    console.log("array", array)
     
-    if (food === true || drink === true || dessert === true) {
+    if (food === true && drink === true && dessert === true) {
       setButton("order-in-progress order-ready");
       setText(readyText);
-    }    
+    } else {
+      setButton("order-in-progress");
+      setText(originalText);
+    }
   }
 
   function placeOrder () {
     
-    let msgFood = foodArray.map((e) => `Prato: ${e}`);
-    let foodqtt = 
+    let msgFood = foodArray.map((e) => `- Prato: ${e}`);
+    let foodQtt = foodAmount.map((e) => (e === 1 ? `\n` : `${e}x\n`));
+    let msgDrink = drinkArray.map((e) => `- Bebida: ${e}`);
+    let drinkQtt = drinkAmount.map((e) => (e === 1 ? `\n` : `${e}x\n`));
+    let msgDessert = dessertArray.map((e) => `- Sobremesa: ${e}`);
+    let dessertQtt = dessertAmount.map((e) => (e === 1 ? `\n` : `${e}x\n`))
+    let total = totalPrice.map((e) => e)
+    let sum = 0;
 
+    function sumPrices(e) {
+      sum += e;
+    }
 
-    const messageWpp = window.encodeURIComponent(`Olá, gostaria de fazer o pedido:\r\n-${msgFood}  "\r\n" + "- Bebida: " + "nome da bebida" + "\r\n" + "- Sobremesa: " + "nome das sobremesas" + "\r\n" + "Total: R$ " + "50,00`);
+    total.forEach(sumPrices);
+
+    const messageWpp = window.encodeURIComponent(`Olá, gostaria de fazer o pedido:\n${msgFood} ${foodQtt}\n${msgDrink} ${drinkQtt}\n${msgDessert} ${dessertQtt}\nTotal: R$ ${sum.toFixed(2)}`);
     window.location.href = "https://wa.me/5521990867634?text=" + messageWpp;
   }
 
