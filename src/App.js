@@ -169,12 +169,12 @@ function AppContents () {
 
   function placeOrder () {
     
-    let msgFood = foodArray.map((e) => `- Prato: ${e}`);
-    let foodQtt = foodAmount.map((e) => (e === 1 ? `\n` : `${e}x\n`));
-    let msgDrink = drinkArray.map((e) => `- Bebida: ${e}`);
-    let drinkQtt = drinkAmount.map((e) => (e === 1 ? `\n` : `${e}x\n`));
-    let msgDessert = dessertArray.map((e) => `- Sobremesa: ${e}`);
-    let dessertQtt = dessertAmount.map((e) => (e === 1 ? `\n` : `${e}x\n`))
+    let msgFood = foodArray.map((e) => `\n- Prato: ${e}`);
+    let foodQtt = foodAmount.map((e) => (e === 1 ? `` : `${e}x`));
+    let msgDrink = drinkArray.map((e) => `\n- Bebida: ${e}`);
+    let drinkQtt = drinkAmount.map((e) => (e === 1 ? `` : `${e}x`));
+    let msgDessert = dessertArray.map((e) => `\n- Sobremesa: ${e}`);
+    let dessertQtt = dessertAmount.map((e) => (e === 1 ? `` : `${e}x`))
     let total = totalPrice.map((e) => e)
     let sum = 0;
 
@@ -184,8 +184,12 @@ function AppContents () {
 
     total.forEach(sumPrices);
 
-    const messageWpp = window.encodeURIComponent(`Olá, gostaria de fazer o pedido:\n${msgFood} ${foodQtt}\n${msgDrink} ${drinkQtt}\n${msgDessert} ${dessertQtt}\nTotal: R$ ${sum.toFixed(2)}`);
-    window.location.href = "https://wa.me/5521990867634?text=" + messageWpp;
+    let messageWpp = `Olá, gostaria de fazer o pedido:${msgFood} ${foodQtt} ${msgDrink} ${drinkQtt} ${msgDessert} ${dessertQtt}\nTotal: R$ ${sum.toFixed(2)}`;
+    messageWpp = messageWpp.replace(/,/g, '');
+
+    const sendMessage = window.encodeURIComponent(messageWpp);
+    console.log(sendMessage)
+    window.location.href = "https://wa.me/5521982304475?text=" + sendMessage;
   }
 
   return (
