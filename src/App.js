@@ -140,6 +140,10 @@ function AppContents () {
   updatedArray.forEach(checkCategory);
   
   function enableButton (array) {
+    food = false;
+    drink = false;
+    dessert = false;
+    
     array.forEach(checkCategory);
     
     if (food === true && drink === true && dessert === true) {
@@ -154,8 +158,8 @@ function AppContents () {
   function placeOrder () {
     
     let msgFood = foodArray.map((e) => (e.amount === 1 ? `\n- Prato: ${e.name}` : `\n- Prato: ${e.name} ${e.amount}x`));
-    let msgDrink = drinkArray.map((e) => (e.amount === 1 ? `\n- Prato: ${e.name}` : `\n- Prato: ${e.name} ${e.amount}x`))
-    let msgDessert = dessertArray.map((e) => (e.amount === 1 ? `\n- Bebida: ${e.name}` : `\n- Bebida: ${e.name} ${e.amount}x`));
+    let msgDrink = drinkArray.map((e) => (e.amount === 1 ? `\n- Bebida: ${e.name}` : `\n- Bebida: ${e.name} ${e.amount}x`))
+    let msgDessert = dessertArray.map((e) => (e.amount === 1 ? `\n- Sobremesa: ${e.name}` : `\n- Sobremesa: ${e.name} ${e.amount}x`));
     let total = totalPrice.map((e) => e)
     let sum = 0;
 
@@ -185,7 +189,6 @@ function AppContents () {
         setSelectedDishes= {setSelectedDishes}
         selectedDishes= {selectedDishes}
         enableButton={enableButton}
-
       />
       <FooterMenu 
         button={button} 

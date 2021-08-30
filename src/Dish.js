@@ -10,7 +10,7 @@ export default function Dish (props) {
 
   let infos;
 
-  function select (index) {
+  function select () {
     if (dish === "") {
       setDish("highlight");
       setCounter(1);
@@ -18,9 +18,8 @@ export default function Dish (props) {
       let newPrice = Number(price.replace(/,/g, '.'));
       infos = {dishName, newPrice, counter, status, index, type};
       setSelectedDishes([...selectedDishes, infos]);
+      enableButton([...selectedDishes, infos]);
     }
-    
-    enableButton([...selectedDishes, infos]);
   }
 
   function removeCurrentDish (thisDish) {
@@ -37,17 +36,18 @@ export default function Dish (props) {
     if (counter === 1) {
       setDish("");
       setStatus(() => false);
-      setSelectedDishes(selectedDishes.filter(function (e) {
+      const newArray = selectedDishes.filter(function (e) {
         return e.dishName !==  dishName
       })
-      )  
+      setSelectedDishes(newArray);
+      enableButton(newArray);
     }
 
     if (counter >= 2) {
       selectedDishes.forEach(removeCurrentDish)
-      setSelectedDishes([...selectedDishes])
+      setSelectedDishes([...selectedDishes]);
+      enableButton([...selectedDishes]);
     }
-    enableButton([...selectedDishes, infos]);
   }
 
   function addCurrentDish (thisDish) {
