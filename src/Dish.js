@@ -47,16 +47,16 @@ export default function Dish (props) {
       setStatus(() => false);
       setSelectedDishes(selectedDishes.filter(function (e) {
         return e.dishName !==  dishName
-      }
-    )
-    )  
-    console.log("sD in", selectedDishes)
+      })
+      )  
+      console.log("sD in", selectedDishes)
     }
 
     if (counter >= 2) {
       selectedDishes.forEach(removeCurrentDish)
       setSelectedDishes([...selectedDishes])
     }
+    enableButton();
   }
 
   function addCurrentDish (thisDish) {
@@ -72,6 +72,7 @@ export default function Dish (props) {
     console.log("here")
     selectedDishes.forEach(addCurrentDish)
     setSelectedDishes([...selectedDishes])
+    enableButton();
   }
 
   return (

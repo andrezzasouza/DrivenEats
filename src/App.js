@@ -89,7 +89,9 @@ export default function App () {
   );
 }
 
-
+let food = false;
+let drink = false;
+let dessert = false;
  
 function AppContents () {
 
@@ -104,51 +106,66 @@ function AppContents () {
   let updatedArray = [...selectedDishes]
 
   const foodArray = [];
+  const foodAmount = [];
   const drinkArray = [];
-  const dessertArray = []
+  const drinkAmount = [];
+  const dessertArray = [];
+  const dessertAmount = [];
   const totalPrice = [];
-  let food = false;
-  let drink = false;
-  let dessert = false;
-
   
 
   function checkCategory(thisDish) {
+    console.log("thisdishapp", thisDish)
     if (thisDish.type === "food-scroll") {
       foodArray.push(thisDish.dishName);
+      foodAmount.push(thisDish.counter);
       totalPrice.push(thisDish.price);
       food = true;
     }
     if (thisDish.type === "drink-scroll") {
       drinkArray.push(thisDish.dishName);
+      drinkAmount.push(thisDish.counter);
       totalPrice.push(thisDish.price);
       drink = true;
     }
     if (thisDish.type === "dessert-scroll") {
       dessertArray.push(thisDish.dishName);
+      dessertAmount.push(thisDish.counter);
       totalPrice.push(thisDish.price);
       dessert = true;
     }
   }
 
+  updatedArray.forEach(checkCategory);
+
   console.log("fA", foodArray);
   console.log("drinkA", drinkArray);
   console.log("dessertA", dessertArray);
-
-  updatedArray.forEach(checkCategory);
+  console.log("price", totalPrice)
 
   console.log("uA", updatedArray)
+  console.log("s1", food);
+  console.log("s2", drink);
+  console.log("s3", dessert);
   
   function enableButton () {
+    console.log("s4", food);
+    console.log("s5", drink);
+    console.log("s6", dessert);
     
-    if (food === true && drink === true && dessert === true) {
+    if (food === true || drink === true || dessert === true) {
       setButton("order-in-progress order-ready");
       setText(readyText);
     }    
   }
 
   function placeOrder () {
-    const messageWpp = window.encodeURIComponent("Olá, gostaria de fazer o pedido:" + "\r\n" + "- Prato: " + "nome do prato" + "\r\n" + "- Bebida: " + "nome da bebida" + "\r\n" + "- Sobremesa: " + "nome das sobremesas" + "\r\n" + "Total: R$ " + "50,00");
+    
+    let msgFood = foodArray.map((e) => `Prato: ${e}`);
+    let foodqtt = 
+
+
+    const messageWpp = window.encodeURIComponent(`Olá, gostaria de fazer o pedido:\r\n-${msgFood}  "\r\n" + "- Bebida: " + "nome da bebida" + "\r\n" + "- Sobremesa: " + "nome das sobremesas" + "\r\n" + "Total: R$ " + "50,00`);
     window.location.href = "https://wa.me/5521990867634?text=" + messageWpp;
   }
 
