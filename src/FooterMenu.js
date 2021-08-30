@@ -1,7 +1,5 @@
 export default function FooterMenu (props) {
-
-  const {button, enableButton, text, placeOrder} = props;
-
+  const {button, text, placeOrder} = props;
 
   function activateButton () {
     if (button === "order-in-progress order-ready") {

@@ -1,5 +1,4 @@
 export default function Counter (props) {
-
     return (
         <div className="counter">
             <button className="minus" onClick={(action) => props.decreaseAmount(action)}>-</button>

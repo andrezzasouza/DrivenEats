@@ -106,57 +106,41 @@ function AppContents () {
   let updatedArray = [...selectedDishes]
 
   const foodArray = [];
-  const foodAmount = [];
   const drinkArray = [];
-  const drinkAmount = [];
   const dessertArray = [];
-  const dessertAmount = [];
   const totalPrice = [];
+  let foodObject = {}
+  let drinkObject = {}
+  let dessertObject = {}
   
 
   function checkCategory(thisDish) {
-    // console.log("thisdishapp", thisDish)
     if (thisDish === undefined) {
       food = false;
       drink = false;
       dessert = false;
     } else if (thisDish.type === "food-scroll") {
-      foodArray.push(thisDish.dishName);
-      foodAmount.push(thisDish.counter);
+      foodObject = {name: thisDish.dishName, amount: thisDish.counter}
+      foodArray.push(foodObject);
       totalPrice.push(thisDish.newPrice);
       food = true;
     } else if (thisDish.type === "drink-scroll") {
-      drinkArray.push(thisDish.dishName);
-      drinkAmount.push(thisDish.counter);
+      drinkObject = {name: thisDish.dishName, amount: thisDish.counter}
+      drinkArray.push(drinkObject);
       totalPrice.push(thisDish.newPrice);
       drink = true;
     } else if (thisDish.type === "dessert-scroll") {
-      dessertArray.push(thisDish.dishName);
-      dessertAmount.push(thisDish.counter);
+      dessertObject = {name: thisDish.dishName, amount: thisDish.counter}
+      dessertArray.push(dessertObject);
       totalPrice.push(thisDish.newPrice);
       dessert = true;
     }
   }
 
   updatedArray.forEach(checkCategory);
-
-  console.log("fA", foodArray);
-  console.log("drinkA", drinkArray);
-  console.log("dessertA", dessertArray);
-  console.log("price", totalPrice)
-
-  console.log("uA", updatedArray)
-  console.log("s1", food);
-  console.log("s2", drink);
-  console.log("s3", dessert);
   
   function enableButton (array) {
-    console.log("s4", food);
-    console.log("s5", drink);
-    console.log("s6", dessert);
-
     array.forEach(checkCategory);
-    console.log("array", array)
     
     if (food === true && drink === true && dessert === true) {
       setButton("order-in-progress order-ready");
@@ -169,12 +153,9 @@ function AppContents () {
 
   function placeOrder () {
     
-    let msgFood = foodArray.map((e) => `\n- Prato: ${e}`);
-    let foodQtt = foodAmount.map((e) => (e === 1 ? `` : `${e}x`));
-    let msgDrink = drinkArray.map((e) => `\n- Bebida: ${e}`);
-    let drinkQtt = drinkAmount.map((e) => (e === 1 ? `` : `${e}x`));
-    let msgDessert = dessertArray.map((e) => `\n- Sobremesa: ${e}`);
-    let dessertQtt = dessertAmount.map((e) => (e === 1 ? `` : `${e}x`))
+    let msgFood = foodArray.map((e) => (e.amount === 1 ? `\n- Prato: ${e.name}` : `\n- Prato: ${e.name} ${e.amount}x`));
+    let msgDrink = drinkArray.map((e) => (e.amount === 1 ? `\n- Prato: ${e.name}` : `\n- Prato: ${e.name} ${e.amount}x`))
+    let msgDessert = dessertArray.map((e) => (e.amount === 1 ? `\n- Bebida: ${e.name}` : `\n- Bebida: ${e.name} ${e.amount}x`));
     let total = totalPrice.map((e) => e)
     let sum = 0;
 
@@ -184,11 +165,10 @@ function AppContents () {
 
     total.forEach(sumPrices);
 
-    let messageWpp = `Olá, gostaria de fazer o pedido:${msgFood} ${foodQtt} ${msgDrink} ${drinkQtt} ${msgDessert} ${dessertQtt}\nTotal: R$ ${sum.toFixed(2)}`;
+    let messageWpp = `Olá, gostaria de fazer o pedido:${msgFood} ${msgDrink} ${msgDessert}\nTotal: R$ ${sum.toFixed(2)}`;
     messageWpp = messageWpp.replace(/,/g, '');
 
     const sendMessage = window.encodeURIComponent(messageWpp);
-    console.log(sendMessage)
     window.location.href = "https://wa.me/5521982304475?text=" + sendMessage;
   }
 
@@ -205,18 +185,12 @@ function AppContents () {
         setSelectedDishes= {setSelectedDishes}
         selectedDishes= {selectedDishes}
         enableButton={enableButton}
-        // counter={counter}
-        // decreaseAmount={decreaseAmount}
-        // increaseAmount={increaseAmount}
-        // select={select}
-        // dish={dish}
+
       />
       <FooterMenu 
         button={button} 
-        enableButton={enableButton} 
         placeOrder={placeOrder}
         text={text} 
-        // buttonStatus={buttonStatus}
       />
     </>
   );

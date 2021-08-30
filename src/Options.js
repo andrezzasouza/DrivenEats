@@ -19,11 +19,6 @@ export default function Options (props) {
           setSelectedDishes = {props.setSelectedDishes}
           selectedDishes= {props.selectedDishes}
           enableButton={props.enableButton}
-          // counter={props.counter} 
-          // increaseAmount={props.increaseAmount} 
-          // decreaseAmount={props.decreaseAmount}
-          // select={props.select}
-          // dish={props.dish}
         />
       )}
       </div>

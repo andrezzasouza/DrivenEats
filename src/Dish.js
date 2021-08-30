@@ -2,27 +2,19 @@ import Counter from "./Counter";
 import React, {useState} from "react";
 
 export default function Dish (props) {
-
   const {dishImg, dishAlt, dishName, description, price, index, type, setSelectedDishes, selectedDishes, enableButton} = props;
-
-  console.log("key", props.index)
 
   const [dish, setDish] = useState("");
   const [status, setStatus] = useState(false);
   const [counter, setCounter] = useState(1);
 
-  console.log("status", status)
   let infos;
 
   function select (index) {
-    
-    console.log(status)
-
     if (dish === "") {
       setDish("highlight");
       setCounter(1);
       setStatus(() => true);
-      console.log("status", status)
       let newPrice = Number(price.replace(/,/g, '.'));
       infos = {dishName, newPrice, counter, status, index, type};
       setSelectedDishes([...selectedDishes, infos]);
@@ -31,10 +23,7 @@ export default function Dish (props) {
     enableButton([...selectedDishes, infos]);
   }
 
-  console.log("sD out", selectedDishes)
-
   function removeCurrentDish (thisDish) {
-    console.log("tD", thisDish);
     if(thisDish.dishName === dishName) {
       thisDish.counter = counter - 1
       let newPrice = Number(price.replace(/,/g, '.')).toFixed(2);
@@ -52,7 +41,6 @@ export default function Dish (props) {
         return e.dishName !==  dishName
       })
       )  
-      console.log("sD in", selectedDishes)
     }
 
     if (counter >= 2) {
@@ -63,7 +51,6 @@ export default function Dish (props) {
   }
 
   function addCurrentDish (thisDish) {
-    console.log("tD", thisDish);
     if (thisDish.dishName === dishName) {
       thisDish.counter = counter + 1;
       let newPrice = Number(price.replace(/,/g, '.'));
@@ -74,7 +61,6 @@ export default function Dish (props) {
   function increaseAmount (event) {
     event.stopPropagation();
     setCounter(counter + 1);
-    console.log("here")
     selectedDishes.forEach(addCurrentDish)
     setSelectedDishes([...selectedDishes])
     enableButton([...selectedDishes], infos);
